@@ -1,0 +1,17 @@
+name: LifeSteal
+version: '${version}'
+main: com.github.sokakmelodileri.lifesteal.LifeSteal
+api-version: '1.20'
+commands:
+  gethealth:
+    description: "asdasdsa"
+    aliases: [ gethealth, gethp ]
+    usage: "/gethealth <player>"
+    permission: lifesteal.gethealth
+    permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
+  sethealth:
+    description: "asdasdsaad"
+    aliases: [ sethealth, sethp ]
+    usage: "/sethealth <player> <amount>"
+    permission: lifesteal.sethealth
+    permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
