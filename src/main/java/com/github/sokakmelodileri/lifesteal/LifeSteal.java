@@ -1,6 +1,8 @@
 package com.github.sokakmelodileri.lifesteal;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -8,12 +10,16 @@ import java.sql.SQLException;
 
 public final class LifeSteal extends JavaPlugin {
     private Database db;
+    FileConfiguration config = getConfig();
+    String pluginTag = (config.getString("pluginTag") + "§r ").replace("&", "§");
     @Override
     public void onEnable() {
         // Plugin startup logic
         initDB();
+        configYenile();
         getCommand("sethealth").setExecutor(new SetHealth(this));
         getCommand("gethealth").setExecutor(new GetHealth(this));
+        getCommand("lifesteal").setExecutor(new MainCommands(this));
         getServer().getPluginManager().registerEvents(new DeathListener(this), this);
 
     }
@@ -24,6 +30,14 @@ public final class LifeSteal extends JavaPlugin {
         closeDB();
     }
 
+    public void configYenile(){
+        reloadConfig();
+        saveDefaultConfig();
+        config = getConfig();
+        config.options().copyDefaults(true);
+        saveConfig();
+    }
+
     public void initDB(){
         try {
             if(!getDataFolder().exists()) getDataFolder().mkdir();
@@ -32,7 +46,7 @@ public final class LifeSteal extends JavaPlugin {
             db = new Database(dbFile.getAbsolutePath());
 
         } catch (Exception e) {
-            System.out.println("Failed to connect to do database!");
+            System.out.println("§4Failed to connect to do database! Plugin shutting down...");
             Bukkit.getPluginManager().disablePlugin(this);
         }
     }
@@ -48,5 +62,14 @@ public final class LifeSteal extends JavaPlugin {
     public Database getHealthsDatabase(){
         return this.db;
     }
+
+    public void sendMessage(CommandSender receiver, String path, String... args){
+        String rawMessage = getConfig().getString("messages."+path);
+        rawMessage = rawMessage.replace("&", "§");
+        String formattedMessage = String.format(rawMessage, (Object[]) args);
+        receiver.sendMessage(pluginTag + formattedMessage);
+    }
+
+
 
 }

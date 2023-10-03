@@ -17,28 +17,29 @@ public class SetHealth implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args.length != 2) {
-        sender.sendMessage("§cWrong Usage should be §a/sethealth <player> <amount>");
+        plugin.sendMessage(sender, "sethealth.usage");
+        return true;
         }
 
 
         String playerName = args[0];
         Player target = Bukkit.getPlayer(playerName);
         if(target == null){
-            sender.sendMessage("§4Player not found!");
+            plugin.sendMessage(sender, "player_not_found");
             return true;
         }
         int amount = 0;
         try {
             amount = Integer.parseInt(args[1]);
         }catch (NumberFormatException e){
-            sender.sendMessage("§cInvalid amount has provided please provide a whole number.");
+            plugin.sendMessage(sender, "sethealth.wrongnumber");
             return true;
         }
         try {
             plugin.getHealthsDatabase().updateHealth(target, amount);
-            sender.sendMessage("§aSuccessfully updated §b" + target.getName() + "§a's healths to §a" + amount + "§a!");
+            plugin.sendMessage(sender, "sethealth.success", target.getName() , String.valueOf(amount));
         }catch (SQLException e){
-            sender.sendMessage("§cAn error occured while updating the player's healths.");
+            plugin.sendMessage(sender, "sethealth.error");
         }
 
         return true;

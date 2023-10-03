@@ -19,21 +19,24 @@ public class GetHealth implements CommandExecutor {
         if(args.length == 0 && sender instanceof Player player){
 
                 int healths = plugin.getHealthsDatabase().getPlayerHealths(player);
-                sender.sendMessage("§aYou have §b" + healths);
+                plugin.sendMessage(sender, "gethealth.self", String.valueOf(healths));
                 return true;
 
             }else {
+            if(sender.hasPermission("lifesteal.admin") || args[0].equals(sender.getName())){
+                String playerName = args[0];
+                Player player = Bukkit.getServer().getPlayer(playerName);
 
-            String playerName = args[0];
-            Player player = Bukkit.getServer().getPlayer(playerName);
+                if (player == null) {
+                    plugin.sendMessage(sender, "player_not_found");
+                    return true;
+                }
 
-            if(player == null){
-                sender.sendMessage("§cPlayer not found!");
-                return true;
+                int healths = plugin.getHealthsDatabase().getPlayerHealths(player);
+                plugin.sendMessage(sender, "gethealth.other", player.getName(), String.valueOf(healths));
+            }else{
+                plugin.sendMessage(sender, "no_permission");
             }
-
-            int healths = plugin.getHealthsDatabase().getPlayerHealths(player);
-            sender.sendMessage(player.getName() + " §ahas §b " + healths);
         }
 
         } catch (SQLException e) {
@@ -41,6 +44,6 @@ public class GetHealth implements CommandExecutor {
         }
 
 
-        return false;
+        return true;
     }
 }

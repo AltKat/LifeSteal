@@ -36,6 +36,13 @@ public class Database {
         }
     }
 
+    public void removePlayer(String uuid) throws SQLException{
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM players WHERE uuid = ?")){
+            preparedStatement.setString(1, uuid);
+            preparedStatement.executeUpdate();
+        }
+    }
+
     public boolean playerExists(Player player) throws SQLException{
         try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM players WHERE uuid = ?")){
             preparedStatement.setString(1, player.getUniqueId().toString());

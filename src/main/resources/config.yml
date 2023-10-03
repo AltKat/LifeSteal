@@ -1,0 +1,21 @@
+messages:
+  death: '&cYou have lost &e1 &chealth because you have died. &aYou have remaining &b %s &ahealths. &4If you run out of healths you will get banned from the server for 1 day and your character will get wiped!'
+  kill: '&aYou have stolen &b1 &ahealth from &b%s&a. &aYou have &b%s &ahealths.'
+  banned: '&a%player% &4has been banned from the server for 1 day because he/she has run out of healths.'
+  player_not_found: '&cPlayer not found!'
+  no_permission: '&cYou don''t have permission to use this command.'
+  reload: '&aLifeSteal has been reloaded.'
+  help: '&aCommands: &b/lifesteal help'
+  helpheader: '&aLifeSteal Commands'
+  helpcontent1: '&6/lifesteal reload &7- Reloads the config.yml file.'
+  helpcontent2: '&6/gethealth <player> &7- Gets the player''s healths.'
+  sethealth:
+    usage: '&cWrong Usage should be &a/sethealth <player> <amount>'
+    wrongnumber: '§cInvalid amount has provided please provide a whole number.'
+    success: '&aYou have set &b%s&a''s healths to &b%s&a.'
+    error: '&cAn error has occured while setting player''s healths.'
+  gethealth:
+    self: '&aYou have &b%s &ahealths.'
+    other: '&a%s has &b%s &ahealths.'
+
+pluginTag: '&8[&bLifeSteal&8]'
