@@ -20,6 +20,7 @@ public final class LifeSteal extends JavaPlugin {
         getCommand("sethealth").setExecutor(new SetHealth(this));
         getCommand("gethealth").setExecutor(new GetHealth(this));
         getCommand("lifesteal").setExecutor(new MainCommands(this));
+        getCommand("lifesteal").setTabCompleter(new TabComplete(this));
         getServer().getPluginManager().registerEvents(new DeathListener(this), this);
 
     }
