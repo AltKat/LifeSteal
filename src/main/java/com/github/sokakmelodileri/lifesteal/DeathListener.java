@@ -28,10 +28,14 @@ public class DeathListener implements Listener {
             }
 
             healths = plugin.getHealthsDatabase().getPlayerHealths(player);
+            String banDuration = plugin.getConfig().getString("ban-duration");
+            String banReason = plugin.getConfig().getString("ban-reason");
+            String banCommand = "tempban " + player.getName() + " " + banDuration + " " + banReason;
             if(healths == 0){
-                    Bukkit.getBanList(BanList.Type.NAME).addBan(player.getUniqueId().toString(), "Run out of healths", null, "console");
-                    event.getEntity().getPlayer().kickPlayer("§cYou have run out of healths and get banned from the server for 1 day and your character has been wiped!");
-                    Bukkit.broadcastMessage(plugin.pluginTag + plugin.getConfig().getString( "messages.banned").replace("%player%", player.getName()).replace("&", "§"));
+                    plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), banCommand);
+                    if(plugin.getConfig().getString("special-ban-message").equalsIgnoreCase("true")) {
+                        Bukkit.broadcastMessage(plugin.pluginTag + plugin.getConfig().getString("messages.banned").replace("%player%", player.getName()).replace("&", "§"));
+                    }
                 plugin.getHealthsDatabase().removePlayer(player.getUniqueId().toString());
             }
         }

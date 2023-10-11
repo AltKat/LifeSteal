@@ -23,12 +23,13 @@ public class MainCommands implements CommandExecutor {
         if(args[0].equals("help")){
             if(sender.hasPermission("lifesteal.admin")){
                 plugin.sendMessage(sender, "helpheader");
+                plugin.sendMessage(sender, "helpadmincontent1");
+                plugin.sendMessage(sender, "helpadmincontent2");
                 plugin.sendMessage(sender, "helpcontent1");
-                plugin.sendMessage(sender, "helpcontent2");
                 return true;
             }else {
                 plugin.sendMessage(sender, "helpheader");
-                plugin.sendMessage(sender, "helpcontent2");
+                plugin.sendMessage(sender, "helpcontent1");
                 return true;
             }
 

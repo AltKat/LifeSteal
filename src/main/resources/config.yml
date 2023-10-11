@@ -7,8 +7,9 @@ messages:
   reload: '&aLifeSteal has been reloaded.'
   help: '&afor Help: &b/lifesteal help'
   helpheader: '&aLifeSteal Commands'
-  helpcontent1: '&6/lifesteal reload &7- Reloads the config.yml file.'
-  helpcontent2: '&6/gethealth <player> &7- Gets the player''s healths.'
+  helpadmincontent1: '&6/lifesteal reload &7- Reloads the config.yml file.'
+  helpadmincontent2: '&6/sethealth <player> <amount> &7- Sets the player''s healths.'
+  helpcontent1: '&6/gethealth <player> &7- Gets the player''s healths.'
   sethealth:
     usage: '&cWrong Usage should be &a/sethealth <player> <amount>'
     wrongnumber: '§cInvalid amount has provided please provide a whole number.'
@@ -19,3 +20,6 @@ messages:
     other: '&a%s has &b%s &ahealths.'
 
 pluginTag: '&8[&bLifeSteal&8]'
+ban-duration: 1h
+ban-reason: 'Run out of lives'
+special-ban-message: false
