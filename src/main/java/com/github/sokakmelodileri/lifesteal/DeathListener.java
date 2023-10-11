@@ -1,5 +1,7 @@
 package com.github.sokakmelodileri.lifesteal;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -48,6 +50,18 @@ public class DeathListener implements Listener {
 
     @EventHandler
     public void onPlayerFirstJoin(PlayerJoinEvent event) throws SQLException {
+        if(plugin.getConfig().getString("actionbar-health").equalsIgnoreCase("true")) {
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+                int healths = 0;
+                try {
+                    healths = plugin.getHealthsDatabase().getPlayerHealths(event.getPlayer());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Healths: " + healths));
+            }, 0, 40);
+        }
+
         if(plugin.getHealthsDatabase().playerExists(event.getPlayer())) return;
         try {
             plugin.getHealthsDatabase().addPlayer(event.getPlayer().getUniqueId().toString(), event.getPlayer().getName());

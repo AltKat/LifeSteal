@@ -22,4 +22,5 @@ messages:
 pluginTag: '&8[&bLifeSteal&8]'
 ban-duration: 1h
 ban-reason: 'Run out of lives'
-special-ban-message: false
+special-ban-message: true
+actionbar-health: true
