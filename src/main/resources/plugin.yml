@@ -15,6 +15,11 @@ commands:
     usage: "/sethealth <player> <amount>"
     permission: lifesteal.sethealth
     permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
+  withdraw:
+    description: "withdraw"
+    usage: "/withdraw <amount>"
+    permission: lifesteal.withdraw
+    permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
   lifesteal:
     description: "lifesteal"
     aliases: [ lifesteal, ls ]

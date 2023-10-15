@@ -6,6 +6,8 @@ messages:
   no_permission: '&cYou don''t have permission to use this command.'
   reload: '&aLifeSteal has been reloaded.'
   help: '&afor Help: &b/lifesteal help'
+  withdraw-succeed: '&aYou successfully withdraw &6%s &ahealths as health paper and you have remaining &6%s &ahealths.'
+  not-enough-healths: '&cYou cannot withdraw healths if you will have just one or less than one health left!'
   helpheader: '&aLifeSteal Commands'
   helpadmincontent1: '&6/lifesteal reload &7- Reloads the config.yml file.'
   helpadmincontent2: '&6/sethealth <player> <amount> &7- Sets the player''s healths.'
@@ -18,9 +20,16 @@ messages:
   gethealth:
     self: '&aYou have &b%s &ahealths.'
     other: '&a%s has &b%s &ahealths.'
+  paper-used: '&bYou have gained &a+1 &bhealths from your health paper and you have remaining &6%s &bhealths.'
 
 pluginTag: '&8[&bLifeSteal&8]'
 ban-duration: 1h
 ban-reason: 'Run out of lives'
 special-ban-message: true
 actionbar-health: true
+action-bar-text: '&6Healths: &c%health%'
+
+paper-name: '&a&lHealth Paper'
+paper-lore:
+- '&aRight click &7to withdraw'
+- '&7your healths as health paper.'

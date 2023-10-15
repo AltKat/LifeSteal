@@ -2,20 +2,24 @@ package com.github.sokakmelodileri.lifesteal;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.BanList;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.sql.SQLException;
 
-public class DeathListener implements Listener {
+public class Listeners implements Listener {
     LifeSteal plugin;
-    DeathListener(LifeSteal plugin){
+    Listeners(LifeSteal plugin){
         this.plugin = plugin;
     }
 
@@ -33,7 +37,7 @@ public class DeathListener implements Listener {
             String banDuration = plugin.getConfig().getString("ban-duration");
             String banReason = plugin.getConfig().getString("ban-reason");
             String banCommand = "tempban " + player.getName() + " " + banDuration + " " + banReason;
-            if(healths == 0){
+            if(healths <= 0){
                     plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), banCommand);
                     if(plugin.getConfig().getString("special-ban-message").equalsIgnoreCase("true")) {
                         Bukkit.broadcastMessage(plugin.pluginTag + plugin.getConfig().getString("messages.banned").replace("%player%", player.getName()).replace("&", "§"));
@@ -49,7 +53,7 @@ public class DeathListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerFirstJoin(PlayerJoinEvent event) throws SQLException {
+    public void onPlayerJoin(PlayerJoinEvent event) throws SQLException {
         if(plugin.getConfig().getString("actionbar-health").equalsIgnoreCase("true")) {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
                 int healths = 0;
@@ -58,7 +62,8 @@ public class DeathListener implements Listener {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Healths: " + healths));
+                String healthString = String.valueOf(healths);
+                event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((plugin.getConfig().getString("action-bar-text")).replace("%health%", healthString).replace("&", "§")));
             }, 0, 40);
         }
 
@@ -68,6 +73,21 @@ public class DeathListener implements Listener {
             plugin.getHealthsDatabase().updateHealth(event.getPlayer(), 5);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+    }
+
+    @EventHandler
+    public void OnPaperUse(PlayerInteractEvent event){
+        Player player = event.getPlayer();
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if(item.getType().equals(Material.PAPER) && item.getItemMeta().getEnchants().containsKey(Enchantment.PROTECTION_ENVIRONMENTAL) && item.getItemMeta().getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)){
+            try {
+                plugin.getHealthsDatabase().updateHealth(player, plugin.getHealthsDatabase().getPlayerHealths(player)+1);
+                plugin.sendMessage(player, "paper-used", String.valueOf(plugin.getHealthsDatabase().getPlayerHealths(player)));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            item.setAmount(item.getAmount()-1);
         }
     }
 }
