@@ -1,5 +1,6 @@
-package com.github.sokakmelodileri.lifesteal;
+package com.github.sokakmelodileri.lifesteal.commands;
 
+import com.github.sokakmelodileri.lifesteal.LifeSteal;
 import com.github.sokakmelodileri.lifesteal.items.HealthPaper;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,13 +12,18 @@ import java.sql.SQLException;
 
 public class WithdrawCommand extends HealthPaper implements CommandExecutor {
     LifeSteal plugin;
-    WithdrawCommand (LifeSteal plugin){
+    public WithdrawCommand(LifeSteal plugin){
         super(plugin);
         this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if(args.length > 1){
+            plugin.sendMessage(sender, "withdraw-usage");
+            return true;
+        }
+
         if(args.length == 0 && sender instanceof Player){
             Player player = ((Player) sender).getPlayer();
             if(sender.hasPermission("lifesteal.withdraw")) {

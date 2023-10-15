@@ -7,11 +7,13 @@ messages:
   reload: '&aLifeSteal has been reloaded.'
   help: '&afor Help: &b/lifesteal help'
   withdraw-succeed: '&aYou successfully withdraw &6%s &ahealths as health paper and you have remaining &6%s &ahealths.'
+  withdraw-usage: '&cWrong Usage should be &a/withdraw <amount>'
   not-enough-healths: '&cYou cannot withdraw healths if you will have just one or less than one health left!'
   helpheader: '&aLifeSteal Commands'
   helpadmincontent1: '&6/lifesteal reload &7- Reloads the config.yml file.'
   helpadmincontent2: '&6/sethealth <player> <amount> &7- Sets the player''s healths.'
   helpcontent1: '&6/gethealth <player> &7- Gets the player''s healths.'
+  helpcontent2: '&6/withdraw <amount> &7- Withdraws your healths as health paper.'
   sethealth:
     usage: '&cWrong Usage should be &a/sethealth <player> <amount>'
     wrongnumber: '§cInvalid amount has provided please provide a whole number.'

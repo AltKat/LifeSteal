@@ -1,4 +1,4 @@
-package com.github.sokakmelodileri.lifesteal;
+package com.github.sokakmelodileri.lifesteal.database;
 
 import org.bukkit.entity.Player;
 

@@ -1,5 +1,6 @@
-package com.github.sokakmelodileri.lifesteal;
+package com.github.sokakmelodileri.lifesteal.commands;
 
+import com.github.sokakmelodileri.lifesteal.LifeSteal;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

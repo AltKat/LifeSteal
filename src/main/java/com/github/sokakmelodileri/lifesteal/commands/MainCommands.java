@@ -1,5 +1,6 @@
-package com.github.sokakmelodileri.lifesteal;
+package com.github.sokakmelodileri.lifesteal.commands;
 
+import com.github.sokakmelodileri.lifesteal.LifeSteal;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,10 +27,12 @@ public class MainCommands implements CommandExecutor {
                 plugin.sendMessage(sender, "helpadmincontent1");
                 plugin.sendMessage(sender, "helpadmincontent2");
                 plugin.sendMessage(sender, "helpcontent1");
+                plugin.sendMessage(sender, "helpcontent2");
                 return true;
             }else {
                 plugin.sendMessage(sender, "helpheader");
                 plugin.sendMessage(sender, "helpcontent1");
+                plugin.sendMessage(sender, "helpcontent2");
                 return true;
             }
 

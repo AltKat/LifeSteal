@@ -1,5 +1,6 @@
-package com.github.sokakmelodileri.lifesteal;
+package com.github.sokakmelodileri.lifesteal.listeners;
 
+import com.github.sokakmelodileri.lifesteal.LifeSteal;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -19,7 +20,7 @@ import java.sql.SQLException;
 
 public class Listeners implements Listener {
     LifeSteal plugin;
-    Listeners(LifeSteal plugin){
+    public Listeners(LifeSteal plugin){
         this.plugin = plugin;
     }
 

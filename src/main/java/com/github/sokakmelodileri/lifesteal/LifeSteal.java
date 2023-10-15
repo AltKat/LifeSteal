@@ -1,5 +1,8 @@
 package com.github.sokakmelodileri.lifesteal;
 
+import com.github.sokakmelodileri.lifesteal.commands.*;
+import com.github.sokakmelodileri.lifesteal.database.Database;
+import com.github.sokakmelodileri.lifesteal.listeners.Listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,7 +14,7 @@ import java.sql.SQLException;
 public final class LifeSteal extends JavaPlugin {
     private Database db;
     FileConfiguration config = getConfig();
-    String pluginTag = (config.getString("pluginTag") + "§r ").replace("&", "§");
+    public String pluginTag = (config.getString("pluginTag") + "§r ").replace("&", "§");
     @Override
     public void onEnable() {
         // Plugin startup logic
