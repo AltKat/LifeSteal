@@ -9,26 +9,36 @@ commands:
     aliases: [ gethealth, gethp ]
     usage: "/gethealth <player>"
     permission: lifesteal.gethealth
-    permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
+    permission-message: "§cYou do not have permission to use this command!"
   sethealth:
     description: "sethealth"
     aliases: [ sethealth, sethp ]
     usage: "/sethealth <player> <amount>"
     permission: lifesteal.sethealth
-    permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
+    permission-message: "§cYou do not have permission to use this command!"
   withdraw:
     description: "withdraw"
     usage: "/withdraw <amount>"
     permission: lifesteal.withdraw
-    permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
+    permission-message: "§cYou do not have permission to use this command!"
   lifesteal:
     description: "lifesteal"
     aliases: [ lifesteal, ls ]
     usage: "/lifesteal <args>"
     permission: lifesteal.lifestealmain
-    permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
+    permission-message: "§cYou do not have permission to use this command!"
   getstick:
     description: "gives a revive stick"
     usage: "/getstick <amount>"
     permission: "lifesteal.admin"
-    permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
+    permission-message: "§cYou do not have permission to use this command!"
+  getshield:
+    description: "gives a health shield"
+    usage: "/getshield <amount> <nick>"
+    permission: "lifesteal.admin"
+    permission-message: "§cYou do not have permission to use this command!"
+  checkshield:
+    description: "checks if a player has a shield"
+    usage: "/checkshield <nick>"
+    permission: "lifesteal.checkshield"
+    permission-message: "§cYou do not have permission to use this command!"

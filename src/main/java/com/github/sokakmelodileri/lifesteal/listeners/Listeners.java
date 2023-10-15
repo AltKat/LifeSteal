@@ -4,25 +4,18 @@ import com.github.sokakmelodileri.lifesteal.LifeSteal;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
-import org.bukkit.block.sign.Side;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.security.Signature;
 import java.sql.SQLException;
 
 public class Listeners implements Listener {
@@ -35,16 +28,39 @@ public class Listeners implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity().getPlayer();
         Player killer = event.getEntity().getKiller();
+
         if(plugin.getConfig().getBoolean("lose-health-only-on-player-kill")){
             if(killer == null) return;
+        }
+
+        if(plugin.getHealthsDatabase().checkShield(player)){
+            if(killer != null) {
+                plugin.getHealthsDatabase().removeShield(player);
+                Bukkit.getScheduler().runTaskLater(plugin, () ->{
+                plugin.sendMessage(player, "your-shield-destroyed", killer.getName());
+                plugin.sendMessage(killer, "shield-destroyed", player.getName());
+                }, 20);
+                return;
+            }
+            if(killer == null){
+                plugin.getHealthsDatabase().removeShield(player);
+                Bukkit.getScheduler().runTaskLater(plugin, () ->{
+                plugin.sendMessage(player, "your-shield-destroyed", "environment");
+                }, 20);
+                return;
+            }
         }
 
         if(player != null){
             plugin.getHealthsDatabase().updateHealth(player, plugin.getHealthsDatabase().getPlayerHealths(player)-1);
             int healths = plugin.getHealthsDatabase().getPlayerHealths(player);
             if(healths > 0) {
-                plugin.sendMessage(player, "death", String.valueOf(healths));
+                int finalHealths = healths;
+                Bukkit.getScheduler().runTaskLater(plugin, () ->{
+                plugin.sendMessage(player, "death", String.valueOf(finalHealths));
+                }, 20);
             }
+
 
             healths = plugin.getHealthsDatabase().getPlayerHealths(player);
             String banDuration = plugin.getConfig().getString("ban-duration");
@@ -140,5 +156,20 @@ public class Listeners implements Listener {
             plugin.cooldowns.put(player.getUniqueId(), false);
         }
 
+    }
+
+    @EventHandler
+    public void onShieldUse(PlayerInteractEvent event){
+        Player player = event.getPlayer();
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if(item.getType().equals(Material.NETHER_BRICK) && item.getItemMeta().getEnchants().containsKey(Enchantment.PROTECTION_ENVIRONMENTAL) && item.getItemMeta().getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)){
+            if(plugin.getHealthsDatabase().checkShield(player)){
+                plugin.sendMessage(player, "already-have-shield");
+                return;
+            }
+            plugin.getHealthsDatabase().addShield(player);
+            plugin.sendMessage(player, "shield-used");
+            item.setAmount(item.getAmount()-1);
+        }
     }
 }

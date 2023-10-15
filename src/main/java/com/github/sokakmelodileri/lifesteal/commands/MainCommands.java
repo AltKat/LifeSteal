@@ -27,6 +27,7 @@ public class MainCommands implements CommandExecutor {
                 plugin.sendMessage(sender, "helpadmincontent1");
                 plugin.sendMessage(sender, "helpadmincontent2");
                 plugin.sendMessage(sender, "helpadmincontent3");
+                plugin.sendMessage(sender, "helpadmincontent4");
                 plugin.sendMessage(sender, "helpcontent1");
                 plugin.sendMessage(sender, "helpcontent2");
                 return true;

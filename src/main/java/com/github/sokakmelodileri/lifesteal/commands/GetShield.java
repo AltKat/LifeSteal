@@ -1,39 +1,39 @@
 package com.github.sokakmelodileri.lifesteal.commands;
 
 import com.github.sokakmelodileri.lifesteal.LifeSteal;
-import com.github.sokakmelodileri.lifesteal.items.ReviveStick;
+import com.github.sokakmelodileri.lifesteal.items.Shield;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
-public class GetStick extends ReviveStick implements CommandExecutor {
+public class GetShield extends Shield implements CommandExecutor {
     LifeSteal plugin;
-    public GetStick(LifeSteal plugin){
+    public GetShield(LifeSteal plugin){
         super(plugin);
         this.plugin = plugin;
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 0 && sender instanceof Player){
+        Player player  = ((Player) sender).getPlayer();
+        if(args.length == 0){
             if(sender.hasPermission("lifesteal.admin")){
-                Player player = ((Player) sender).getPlayer();
-                player.getInventory().addItem(getStick(1));
-                plugin.sendMessage(sender, "getstick-succeed");
+                ItemStack item = getShield(1);
+                player.getInventory().addItem(item);
+                plugin.sendMessage(sender, "getshield-succeed");
                 return true;
             }else{
                 plugin.sendMessage(sender, "no_permission");
             }
-
         }
-        if(args.length == 1 && sender instanceof Player){
+        if(args.length == 1){
             try {
                 int amount = Integer.parseInt(args[0]);
-
                 if(sender.hasPermission("lifesteal.admin")){
-                    Player player = ((Player) sender).getPlayer();
-                    player.getInventory().addItem(getStick(amount));
-                    plugin.sendMessage(sender, "getstick-succeed");
+                    ItemStack item = getShield(amount);
+                    player.getInventory().addItem(item);
+                    plugin.sendMessage(sender, "getshield-succeed");
                 }else{
                     plugin.sendMessage(sender, "no_permission");
                 }
@@ -42,8 +42,7 @@ public class GetStick extends ReviveStick implements CommandExecutor {
             }
             return true;
         }
-
-        if(args.length == 2 && sender instanceof Player){
+        if(args.length == 2){
             try {
                 int amount = Integer.parseInt(args[0]);
                 String playerName = args[1];
@@ -53,8 +52,9 @@ public class GetStick extends ReviveStick implements CommandExecutor {
                     return true;
                 }
                 if(sender.hasPermission("lifesteal.admin")){
-                    target.getInventory().addItem(getStick(amount));
-                    plugin.sendMessage(sender, "getstick-succeed");
+                    ItemStack item = getShield(amount);
+                    target.getInventory().addItem(item);
+                    plugin.sendMessage(sender, "getshield-succeed");
                 }else{
                     plugin.sendMessage(sender, "no_permission");
                 }
@@ -65,10 +65,10 @@ public class GetStick extends ReviveStick implements CommandExecutor {
         }
 
         if(args.length > 2){
-            plugin.sendMessage(sender, "getstick-usage");
+            plugin.sendMessage(sender, "getshield-usage");
             return true;
         }
 
-        return true;
+        return false;
     }
 }

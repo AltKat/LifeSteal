@@ -17,7 +17,8 @@ public class Database {
                 uuid TEXT PRIMARY KEY,
                 username TEXT NOT NULL, 
                 health INTEGER NOT NULL DEFAULT 0,
-                isbanned TEXT NOT NULL DEFAULT "false")
+                isbanned TEXT NOT NULL DEFAULT "false",
+                hasshield TEXT NOT NULL DEFAULT "false")
         """);
         }
     }
@@ -117,6 +118,40 @@ public class Database {
         try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE players SET isbanned = ? WHERE username = ?")) {
             preparedStatement.setString(1, "false");
             preparedStatement.setString(2, nick);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public boolean checkShield(Player player){
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT hasshield FROM players WHERE uuid = ?")){
+            preparedStatement.setString(1, player.getUniqueId().toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                if(resultSet.getString("hasshield").equalsIgnoreCase("true")){
+                    return true;
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void addShield(Player player){
+        try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE players SET hasshield = ? WHERE uuid = ?")) {
+            preparedStatement.setString(1, "true");
+            preparedStatement.setString(2, player.getUniqueId().toString());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void removeShield(Player player){
+        try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE players SET hasshield = ? WHERE uuid = ?")) {
+            preparedStatement.setString(1, "false");
+            preparedStatement.setString(2, player.getUniqueId().toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

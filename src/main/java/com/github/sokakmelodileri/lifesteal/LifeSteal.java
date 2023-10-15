@@ -18,7 +18,6 @@ public final class LifeSteal extends JavaPlugin {
     FileConfiguration config = getConfig();
     public String pluginTag = (config.getString("pluginTag") + "§r ").replace("&", "§");
     public HashMap <UUID, Boolean> cooldowns = new HashMap<>();
-    public HashMap <UUID, Boolean> usingstick = new HashMap<>();
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -29,6 +28,8 @@ public final class LifeSteal extends JavaPlugin {
         getCommand("lifesteal").setExecutor(new MainCommands(this));
         getCommand("withdraw").setExecutor(new WithdrawCommand(this));
         getCommand("getstick").setExecutor(new GetStick(this));
+        getCommand("checkshield").setExecutor(new CheckShield(this));
+        getCommand("getshield").setExecutor(new GetShield(this));
         getCommand("lifesteal").setTabCompleter(new TabComplete(this));
         getServer().getPluginManager().registerEvents(new Listeners(this), this);
     }
