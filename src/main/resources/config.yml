@@ -1,3 +1,23 @@
+pluginTag: '&8[&bLifeSteal&8]'
+starting-health: 10
+ban-duration: 1h
+special-ban-message: true
+actionbar-health: true
+lose-health-only-on-player-kill: false
+unban-stick-broadcast-enabled: true
+ban-reason: 'Run out of lives'
+unban-reason: 'Revived with revive stick'
+action-bar-text: '&6Healths: &c%health%'
+paper-name: '&a&lHealth Paper'
+paper-lore:
+  - '&aRight click &7to withdraw'
+  - '&7your healths as health paper.'
+stick-name: '&c&lRevive Stick'
+stick-lore:
+  - '&aRight click to open revive menu'
+  - '&aType in player name and watch its revival'
+  - '&aOne-use only'
+  - '&4If you close without submitting item will be gone!'
 messages:
   death: '&cYou have lost &e1 &chealth because you have died. &aYou have remaining &b %s &ahealths. &4If you run out of healths you will get banned from the server for 1 day and your character will get wiped!'
   kill: '&aYou have stolen &b1 &ahealth from &b%s&a. &aYou have &b%s &ahealths.'
@@ -5,15 +25,16 @@ messages:
   player_not_found: '&cPlayer not found!'
   no_permission: '&cYou don''t have permission to use this command.'
   reload: '&aLifeSteal has been reloaded.'
-  help: '&afor Help: &b/lifesteal help'
   withdraw-succeed: '&aYou successfully withdraw &6%s &ahealths as health paper and you have remaining &6%s &ahealths.'
   withdraw-usage: '&cWrong Usage should be &a/withdraw <amount>'
+  getstick-succeed: '&aYou successfully get revive stick(s)'
+  getstick-usage: '&cWrong Usage should be &a/getstick <amount>'
+  stick-used: '&aPlease type a player name to revive &c(Case Sensitive!)&a.'
   not-enough-healths: '&cYou cannot withdraw healths if you will have just one or less than one health left!'
-  helpheader: '&aLifeSteal Commands'
-  helpadmincontent1: '&6/lifesteal reload &7- Reloads the config.yml file.'
-  helpadmincontent2: '&6/sethealth <player> <amount> &7- Sets the player''s healths.'
-  helpcontent1: '&6/gethealth <player> &7- Gets the player''s healths.'
-  helpcontent2: '&6/withdraw <amount> &7- Withdraws your healths as health paper.'
+  paper-used: '&bYou have gained &a+1 &bhealths from your health paper and you have remaining &6%s &bhealths.'
+  player_not_banned: '&cPlayer is not banned!'
+  unban-stick-broadcast: '&a%player% &bhas been unbanned by &a%executor%&b with a &c&lRevive Stick.'
+  cooldown: '&cYou have to write a nick before using another stick.'
   sethealth:
     usage: '&cWrong Usage should be &a/sethealth <player> <amount>'
     wrongnumber: '§cInvalid amount has provided please provide a whole number.'
@@ -22,16 +43,10 @@ messages:
   gethealth:
     self: '&aYou have &b%s &ahealths.'
     other: '&a%s has &b%s &ahealths.'
-  paper-used: '&bYou have gained &a+1 &bhealths from your health paper and you have remaining &6%s &bhealths.'
-
-pluginTag: '&8[&bLifeSteal&8]'
-ban-duration: 1h
-ban-reason: 'Run out of lives'
-special-ban-message: true
-actionbar-health: true
-action-bar-text: '&6Healths: &c%health%'
-
-paper-name: '&a&lHealth Paper'
-paper-lore:
-- '&aRight click &7to withdraw'
-- '&7your healths as health paper.'
+  help: '&afor Help: &b/lifesteal help'
+  helpheader: '&aLifeSteal Commands'
+  helpadmincontent1: '&6/lifesteal reload &7- Reloads the config.yml file.'
+  helpadmincontent2: '&6/sethealth <player> <amount> &7- Sets the player''s healths.'
+  helpadmincontent3: '&6/getstick <amount> <nick> &7- Gives the revive stick(s).'
+  helpcontent1: '&6/gethealth <player> &7- Gets the player''s healths.'
+  helpcontent2: '&6/withdraw <amount> &7- Withdraws your healths as health paper.'

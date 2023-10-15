@@ -16,7 +16,6 @@ public class GetHealth implements CommandExecutor {
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        try {
         if(args.length == 0 && sender instanceof Player player){
 
                 int healths = plugin.getHealthsDatabase().getPlayerHealths(player);
@@ -38,10 +37,6 @@ public class GetHealth implements CommandExecutor {
             }else{
                 plugin.sendMessage(sender, "no_permission");
             }
-        }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
 
 

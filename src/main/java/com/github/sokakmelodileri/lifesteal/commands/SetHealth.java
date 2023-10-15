@@ -36,12 +36,8 @@ public class SetHealth implements CommandExecutor {
             plugin.sendMessage(sender, "sethealth.wrongnumber");
             return true;
         }
-        try {
-            plugin.getHealthsDatabase().updateHealth(target, amount);
-            plugin.sendMessage(sender, "sethealth.success", target.getName() , String.valueOf(amount));
-        }catch (SQLException e){
-            plugin.sendMessage(sender, "sethealth.error");
-        }
+        plugin.getHealthsDatabase().updateHealth(target, amount);
+        plugin.sendMessage(sender, "sethealth.success", target.getName() , String.valueOf(amount));
 
         return true;
     }

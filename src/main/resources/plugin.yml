@@ -2,6 +2,7 @@ name: LifeSteal
 version: '${version}'
 main: com.github.sokakmelodileri.lifesteal.LifeSteal
 api-version: '1.20'
+author: 'StreetMelodeez'
 commands:
   gethealth:
     description: "gethealth"
@@ -25,4 +26,9 @@ commands:
     aliases: [ lifesteal, ls ]
     usage: "/lifesteal <args>"
     permission: lifesteal.lifestealmain
+    permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
+  getstick:
+    description: "gives a revive stick"
+    usage: "/getstick <amount>"
+    permission: "lifesteal.admin"
     permission-message: "§cBu komutu kullanmak için yetkiniz yok!"
